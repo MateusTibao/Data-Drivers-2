@@ -1,0 +1,74 @@
+@startuml
+class Pessoa {
+    - static int contadorId
+    - final int id
+    - final String nome
+    - final String telefone
+    - final String cpf
+    + Pessoa(String nome, String telefone, String cpf)
+    + String getNome()
+}
+
+class Funcionario {
+    - String funcional
+    + Funcionario(String nome, String telefone, String cpf, String funcional)
+    + String getFuncional()
+}
+
+class Gerente {
+    - String funcional
+    - ArrayList<Funcionario> funcionarios
+    + Gerente(String nome, String telefone, String cpf, String funcional)
+    + void exibirFuncionarios()
+    + void adicionarFuncionario(Funcionario funcionario)
+    + void removerFuncionario(Funcionario funcionario)
+}
+
+class Produto {
+    - static int contadorId
+    - final int id
+    - final String nome
+    - final String descricao
+    - double preco
+    - int estoque
+    + Produto(String nome, String descricao, double preco, int estoque)
+    + String getNome()
+    + void setEstoque(int estoque)
+    + void exibirInformacoesProduto()
+}
+
+class Compra {
+    - static int contadorId
+    - int id
+    - Oficina oficina
+    - ArrayList<Produto> produtos
+    - LocalDate data
+    - double valorTotal
+    - boolean finalizada
+    + Compra(Oficina oficina)
+    + void adicionarProduto(Produto produto, int quantidade)
+    + void removerProduto(Produto produto, int quantidade)
+    + double calcularValorTotal()
+    + void exibirPedido()
+    + void finalizarCompra()
+}
+
+class Oficina {
+    - static int contadorId
+    - final int id
+    - final String nome
+    - final String endereco
+    - String email
+    - String telefone
+    - Pessoa representante
+    + Oficina(String nome, String endereco, String email, String telefone, Pessoa representante)
+    + void exibirInformacoesOficina()
+}
+
+Pessoa <|-- Funcionario : "Herda de"
+Pessoa <|-- Gerente : "Herda de"
+Pessoa <-- Oficina : "Tem um representante do tipo"
+Oficina --> Compra : "Realiza"
+Compra --> Produto : "Inclui"
+Gerente --> Funcionario : "Gerencia"
+@enduml
